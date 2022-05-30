@@ -1,22 +1,32 @@
 <?php
 
-require_once 'src/Conta.php';
-require_once 'src/Titular.php';
-require_once 'src/CPF.php';
+//use Model\Conta\Conta;
+use Model\Conta\{ContaCorrente, ContaPopanca, Titular};
+use Model\{CPF, Endereco};
 
-$gabrieli = new Titular(new CPF('123.456.789-10'), 'Gabrieli Ribeiro');
-$primeiraConta = new Conta($gabrieli);
+require_once 'autoload.php';
+
+$endereco= new Endereco('Tubarão', 'Um bairro', 'Uma rua', '440');
+
+$gabrieli = new Titular(new CPF('123.456.789-10'), 'Gabrieli Ribeiro', $endereco);
+$primeiraConta = new ContaPopanca($gabrieli);
 $primeiraConta->deposita(500);
-$primeiraConta->saca(300);
+$primeiraConta->saca(100);
 
 echo $primeiraConta->recuperaNomeTitular() . PHP_EOL;
 echo $primeiraConta->recuperaSaldo() . PHP_EOL;
 echo $primeiraConta->recuperaCpfTitular() . PHP_EOL;
 
-$anaMaria = new Titular(new CPF('129.465.789-20'), 'Ana Maria');
-$segundaConta =  new Conta($anaMaria);
-var_dump($segundaConta);
+$raulPacheco = new Titular(new CPF('129.465.789-20'), 'Raul Pacheco', $endereco);
+$segundaConta =  new ContaCorrente($raulPacheco);
+$segundaConta->deposita(600);
+$segundaConta->transfere(300, $primeiraConta);
 
-$novaConta=new Conta(new Titular(new CPF('123'), 'ABCDEFG'));
+echo $segundaConta->recuperaNomeTitular() . PHP_EOL;
+echo $segundaConta->recuperaSaldo() . PHP_EOL;
+echo $segundaConta->recuperaCpfTitular() . PHP_EOL;
+
+$outroEndereco= new Endereco('Imbituba', 'Um Bairro', 'Uma Rua', '502');
+$novaConta=new ContaCorrente(new Titular(new CPF('123.854.784-96'), 'ABCDEFG', $outroEndereco));
 unset($segundaConta);
-echo Conta::recuperaNumeroDeContas();
+echo ContaCorrente::recuperaNumeroDeContas();

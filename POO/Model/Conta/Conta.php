@@ -1,29 +1,32 @@
 <?php
 
-class Conta
+namespace Model\Conta;
+
+abstract class Conta
 {
     private $titular;
-    private $saldo;
+    protected $saldo;
     private static $numeroDeContas=0;
 
     public function __construct(Titular $titular)
     {
         $this->titular=$titular;
-
         $this->saldo=0;
 
         self::$numeroDeContas++;
     }
 
     //Funções de Saldo
-    public function saca(float $valorASacar)
+    public function saca(float $valorASacar): void
     {
-        if ($valorASacar > $this->  saldo){
-            echo "Saldo indisponivel";
+        $tarifaSaque = $valorASacar * $this->percentualTarifa();
+        $valorSaque = $valorASacar + $tarifaSaque;
+        if ($valorSaque > $this->saldo) {
+            echo "Saldo indisponível";
             return;
         }
 
-        $this->saldo-=$valorASacar;
+        $this->saldo -= $valorSaque;
     }
     
     public function  deposita(float $valorADepositar):void
@@ -37,16 +40,7 @@ class Conta
 
     }
 
-    public function transfere(float $valorATransferir, Conta $contaDestino):void
-    {
-        if ($valorATransferir >$this->saldo){
-            echo "Valor indisponivel";
-            return;
-        }
-            $this->sacar($valorATransferir);
-            $contaDestino->depositar($valorATransferir);
-        
-    }
+
 
     public function recuperaSaldo(): float
     {
@@ -75,4 +69,7 @@ class Conta
     {
         self::$numeroDeContas--;
     }
+
+    abstract protected function percentualTarifa():float;
+
 }
