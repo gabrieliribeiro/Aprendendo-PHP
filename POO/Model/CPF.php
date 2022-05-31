@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class CPF
+final class CPF
 {
     private $numero;
 

@@ -2,14 +2,16 @@
 
 namespace Model;
 
-class Pessoa
+abstract class Pessoa
 {
+    use AcessoPropriedade;
+
     protected $nome;
     protected $cpf;
 
     public function __construct(string $nome, CPF $cpf)
     {
-        $this->validaNomeTitular($nome);
+        $this->validaNome($nome);
         $this->nome = $nome;
         $this->cpf = $cpf;
     }
@@ -25,7 +27,7 @@ class Pessoa
         return $this->cpf->recuperaNumero();
     }
 
-    protected function validaNomeTitular(string $nomeTitular)
+    final protected function validaNome(string $nomeTitular)
     {
         if (strlen($nomeTitular)<5){
             echo "Nome precisa ter mais de 5 caracteres";
