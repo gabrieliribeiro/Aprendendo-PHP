@@ -3,11 +3,12 @@
 namespace Model\Conta;
 
 
+use Model\Autenticavel;
 use Model\CPF;
 use Model\Pessoa;
 use Model\Endereco;
 
-class Titular extends Pessoa
+class Titular extends Pessoa implements Autenticavel
 {
     private Endereco $endereco;
 
@@ -20,6 +21,11 @@ class Titular extends Pessoa
     public function recuperaEndereco(): Endereco
     {
         return $this->endereco;
+    }
+
+    public function podeAutenticar(string $senha): bool
+    {
+        return $senha === 'abcde';
     }
 
 }
