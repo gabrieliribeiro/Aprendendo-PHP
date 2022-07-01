@@ -25,8 +25,15 @@
 </head>
 <body>
     <div>
-        <form>
-
+        <form method="get" action="calcula_salario.php">
+            <h2>Calcula rendimento de salário:</h2>
+            <label for="salario_bruto">Quanto que você ganha por hora?
+                <input type="number" step="0.01" name="salario_bruto" id="salario_bruto">
+            </label> <br>
+            <label for="horas_trabalhadas">Quantas horas você trabalhou neste mês?
+                <input type="number" step="0.01" name="horas_trabalhadas" id="horas_trabalhadas">
+            </label> <br>
+            <input type="submit" value="calcular">
         </form>
     </div>
 </body>

@@ -17,7 +17,9 @@
             $excesso=$peso-50;
             $multa=$excesso*4;
             echo "Peso de peixes maior que o estabelecido pelo regulamento de pesca do estado de São Paulo!";
+            echo "<br>";
             echo"O peso excedente é de:". $excesso;
+            echo "<br>";
             echo"Valor da multa é de:" . $multa;
         }
     ?>
